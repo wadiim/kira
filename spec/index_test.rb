@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require './lib/index'
+require 'index'
 
 RSpec.describe Kira::Index do
   before(:each) do

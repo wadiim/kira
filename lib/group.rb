@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'index'
+
 module Kira
 
   # Represents a group of cells, the sum of which must be equal to a certain

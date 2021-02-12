@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'group'
+
 module Kira
 
   # Represents the state of a 9x9 Sudoku puzzle. 

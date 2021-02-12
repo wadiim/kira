@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+require 'puzzle'
+
 module Kira
 
   # A Killer Sudoku solver. It is initialized with a string containing a grid

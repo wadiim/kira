@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
-require 'index'
-require 'group'
-require 'puzzle'
 require 'sudoku'
 
 if __FILE__ == $0

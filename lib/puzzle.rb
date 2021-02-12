@@ -165,9 +165,9 @@ module Kira
 
       # Update @gaps
       if val != 0 and old == 0
-        @gaps += 1
-      elsif val == 0 and old != 0
         @gaps -= 1
+      elsif val == 0 and old != 0
+        @gaps += 1
       end
     end
   end

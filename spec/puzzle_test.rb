@@ -247,10 +247,10 @@ RSpec.describe Kira::Puzzle do
         expect(@puzzle[1]).to eq(1)
       end
 
-      it "increments the 'gaps' instance variable" do
+      it "decrements the 'gaps' instance variable" do
         gaps = @puzzle.gaps
         @puzzle[1] = 1
-        expect(@puzzle.gaps).to eq(gaps + 1)
+        expect(@puzzle.gaps).to eq(gaps - 1)
       end
 
       it "updates the 'grid_of_possibilities' instance variable" do
@@ -274,10 +274,10 @@ RSpec.describe Kira::Puzzle do
         @puzzle = Kira::Puzzle.new(@grid_str)
       end
 
-      it "decrements the 'gaps' instance variable" do
+      it "increments the 'gaps' instance variable" do
         gaps = @puzzle.gaps
         @puzzle[0] = 0
-        expect(@puzzle.gaps).to eq(gaps - 1)
+        expect(@puzzle.gaps).to eq(gaps + 1)
       end
 
       it "updates the 'grid_of_possibilities' instance variable" do

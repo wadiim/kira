@@ -119,29 +119,29 @@ RSpec.describe Kira::Sudoku do
         expect(sudoku.valid?(2, 0)).to eq(false)
       end
     end
+  end
 
-    describe "#solve" do
-      context "given a solved grid" do
-        it "returns true" do
-          sudoku = Kira::Sudoku.new(@solved_grid)
-          expect(sudoku.solve).to eq(true)
-        end
+  describe "#solve" do
+    context "given a solved grid" do
+      it "returns true" do
+        sudoku = Kira::Sudoku.new(@solved_grid)
+        expect(sudoku.solve).to eq(true)
       end
+    end
 
-      context "given an over-constrained grid" do
-        it "returns false" do
-          @grid[0] = '8'
-          sudoku = Kira::Sudoku.new(@grid)
-          expect(sudoku.solve).to eq(false)
-        end
+    context "given an over-constrained grid" do
+      it "returns false" do
+        @grid[0] = '8'
+        sudoku = Kira::Sudoku.new(@grid)
+        expect(sudoku.solve).to eq(false)
       end
+    end
 
-      context "given an unsolved grid" do
-        it "solves it" do
-          sudoku = Kira::Sudoku.new(@grid)
-          sudoku.solve
-          expect(sudoku.puzzle.to_s).to eq(@solved_grid)
-        end
+    context "given an unsolved grid" do
+      it "solves it" do
+        sudoku = Kira::Sudoku.new(@grid)
+        sudoku.solve
+        expect(sudoku.puzzle.to_s).to eq(@solved_grid)
       end
     end
   end

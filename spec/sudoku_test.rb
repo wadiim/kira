@@ -119,6 +119,41 @@ RSpec.describe Kira::Sudoku do
         expect(sudoku.valid?(2, 0)).to eq(false)
       end
     end
+
+    context "given an equation containing multiple empty cells" do
+      before(:each) do
+        @g = "1.3......\n"\
+             ".........\n"\
+             ".........\n"\
+             ".........\n"\
+             ".........\n"\
+             ".........\n"\
+             ".........\n"\
+             ".........\n"\
+             ".........\n"\
+      end
+
+      context "given a sum greater than the current one" do
+        it "returns true" do
+          sudoku = Kira::Sudoku.new(@g + "(0,0)+(0,1)+(0,2)+(0,3)+(0,4)=26\n")
+          expect(sudoku.valid?(2, 1)).to eq(true)
+        end
+      end
+
+      context "given a sum less than the current one" do
+        it "returns false" do
+          sudoku = Kira::Sudoku.new(@g + "(0,0)+(0,1)+(0,2)+(0,3)+(0,4)=3\n")
+          expect(sudoku.valid?(8, 1)).to eq(false)
+        end
+      end
+
+      context "given a sum equal to the current one" do
+        it "returns false" do
+          sudoku = Kira::Sudoku.new(@g + "(0,0)+(0,1)+(0,2)+(0,3)+(0,4)=6\n")
+          expect(sudoku.valid?(2, 1)).to eq(false)
+        end
+      end
+    end
   end
 
   describe "#solve" do

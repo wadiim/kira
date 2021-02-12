@@ -82,6 +82,11 @@ module Kira
       @groups.each do
         |g|
         sum = 0
+
+        # Set to true when the group contains an empty cell at position other
+        # than 'pos'.
+        empty_cell = false
+
         g.indexes.each do
           |idx|
           flattened_idx = idx.row*9 + idx.col
@@ -95,11 +100,16 @@ module Kira
             if val == v
               return false
             end
+            if v == 0
+              empty_cell = true
+            end
             sum += v
           end
         end
 
-        if sum != g.sum
+        unless (sum == g.sum and not empty_cell) or
+            (empty_cell and sum < g.sum)
+
           return false
         end
       end

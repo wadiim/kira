@@ -120,6 +120,24 @@ RSpec.describe Kira::Sudoku do
       end
     end
 
+    context "given an arg which duplicates a value in other equation" do
+      it "returns true" do
+        sudoku = Kira::Sudoku.new("5.67..34.\n"\
+                                  "492.35718\n"\
+                                  ".........\n"\
+                                  ".........\n"\
+                                  ".........\n"\
+                                  ".........\n"\
+                                  ".........\n"\
+                                  ".........\n"\
+                                  "8.......2\n"\
+                                  "(0,0)+(0,1)+(0,2)+(0,3)=26\n"\
+                                  "(1,0)+(1,1)+(1,2)+(1,3)=21\n")
+
+        expect(sudoku.valid?(6, 12)).to eq(true)
+      end
+    end
+
     context "given an equation containing multiple empty cells" do
       before(:each) do
         @g = "1.3......\n"\

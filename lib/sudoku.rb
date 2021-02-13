@@ -87,6 +87,9 @@ module Kira
         # than 'pos'.
         empty_cell = false
 
+        # Set to true when the group contains the value 'val'.
+        present = false
+
         g.indexes.each do
           |idx|
           flattened_idx = idx.row*9 + idx.col
@@ -94,11 +97,11 @@ module Kira
           # calculating the 'sum'.
           if flattened_idx == pos
             sum += val
+            if present then return false else present = true end
           else
             v = @puzzle.grid[flattened_idx]
-            # If the group already contains that value, return false.
             if val == v
-              return false
+              if present then return false else present = true end
             end
             if v == 0
               empty_cell = true

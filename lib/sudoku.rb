@@ -49,26 +49,18 @@ module Kira
         end
       end
 
-      # If there is no value to insert, return false.
-      if min_idx == 0 and @puzzle[min_idx] != 0 or
-          @puzzle.grid_of_possibilities[min_idx] == 0
+      possibilities = @puzzle.grid_of_possibilities[min_idx].dup
+      possibilities.delete_if { |p| valid?(p, min_idx) == false }
 
-        return false
-      end
+      while possibilities.size > 0 do
+        @puzzle[min_idx] = possibilities.pop
 
-      @puzzle.grid_of_possibilities[min_idx].each do
-        |v|
-        unless valid?(v, min_idx)
-          next
-        end
-
-        @puzzle[min_idx] = v
-
-        if solve()
+        if solve
           return true
         end
       end
 
+      @puzzle[min_idx] = 0
       false
     end
 

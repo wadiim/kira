@@ -67,7 +67,7 @@ module Kira
     # Returns true if the 'val' on the given 'pos' does not repeat in a column,
     # row, box or group and all the equations are satisfied.
     def valid?(val, pos)
-      if not @puzzle.valid?(val, pos)
+      unless @puzzle.grid_of_possibilities[pos].include?(val)
         return false
       end
 

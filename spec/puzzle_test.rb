@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'puzzle'
+require 'kira/puzzle'
 
 RSpec.describe Kira::Puzzle do
   before(:each) do

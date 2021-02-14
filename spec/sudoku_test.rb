@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'sudoku'
+require 'kira/sudoku'
 
 RSpec.describe Kira::Sudoku do
   before(:each) do

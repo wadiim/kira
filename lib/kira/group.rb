@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'index'
+require 'kira/index'
 
 module Kira
 

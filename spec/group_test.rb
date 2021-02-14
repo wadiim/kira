@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-require 'group'
+require 'kira/group'
 
 RSpec.describe Kira::Group do
   before(:each) do

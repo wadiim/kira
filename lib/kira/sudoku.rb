@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-require 'puzzle'
+require 'kira/group'
+require 'kira/puzzle'
 
 module Kira
 

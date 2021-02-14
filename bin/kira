@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # -*- coding: utf-8 -*-
 
-require 'sudoku'
+require 'kira'
 
 if __FILE__ == $0
   begin

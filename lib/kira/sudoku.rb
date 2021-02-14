@@ -72,34 +72,30 @@ module Kira
         return false
       end
 
-      @groups.each do
-        |g|
-        sum = 0
+      @groups.each do |g|
+        unless g.indexes.include?(pos)
+          next
+        end
+
+        sum = val
 
         # Set to true when the group contains an empty cell at position other
         # than 'pos'.
         empty_cell = false
 
-        # Set to true when the group contains the value 'val'.
-        present = false
+        g.indexes.each do |idx|
+          v = @puzzle.grid[idx]
 
-        g.indexes.each do
-          |idx|
-          # If the group contains the 'pos', take its value into account when
-          # calculating the 'sum'.
-          if idx == pos
-            sum += val
-            if present then return false else present = true end
-          else
-            v = @puzzle.grid[idx]
-            if val == v
-              if present then return false else present = true end
+          if idx != pos
+            if v == val
+              return false
             end
             if v == 0
               empty_cell = true
             end
-            sum += v
           end
+
+          sum += v
         end
 
         unless (sum == g.sum and not empty_cell) or

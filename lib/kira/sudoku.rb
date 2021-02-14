@@ -85,14 +85,13 @@ module Kira
 
         g.indexes.each do
           |idx|
-          flattened_idx = idx.row*9 + idx.col
           # If the group contains the 'pos', take its value into account when
           # calculating the 'sum'.
-          if flattened_idx == pos
+          if idx == pos
             sum += val
             if present then return false else present = true end
           else
-            v = @puzzle.grid[flattened_idx]
+            v = @puzzle.grid[idx]
             if val == v
               if present then return false else present = true end
             end

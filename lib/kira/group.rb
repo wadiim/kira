@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-require 'kira/index'
-
 module Kira
 
   # Represents a group of cells, the sum of which must be equal to a certain
@@ -26,14 +24,14 @@ module Kira
       str_idxs.each {
         |idx|
         row, col = idx.scan(/\d+/).map(&:to_i)
-        @indexes.push(Index.new(row, col))
+        indexes.push(row*9 + col)
       }
     end
 
     attr_reader :indexes, :sum
 
     def to_s
-      string = @indexes.join(" + ") + " = #{@sum}"
+      (@indexes.map { |i| "(#{i/9}, #{i%9})" }).join(" + ") + " = #{@sum}"
     end
   end
 end

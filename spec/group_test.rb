@@ -3,32 +3,23 @@
 require 'kira/group'
 
 RSpec.describe Kira::Group do
-  before(:each) do
-    @sum = 22
-    @idxs = []
-    3.times { |i| @idxs[i] = Kira::Index.new(i, i) }
-    @test_attrs = Proc.new {
-      |group|
-      expect(group.sum).to eq(@sum)
-      expect(group.indexes).to match_array(@idxs)
-    }
-  end
-    
   describe "#initialize" do
     context "given a string argument in the correct format" do
       it "sets the 'sum' and 'indexes' instance variables" do
-        group = Kira::Group.new("#{@idxs[0]}+#{@idxs[1]}+#{@idxs[2]}=#{@sum}")
-        @test_attrs.call(group)
+        group = Kira::Group.new("(2,2)+(4,8)+(7,2)=22")
+        expect(group.indexes).to match_array([20, 44, 65])
+        expect(group.sum).to eq(22)
       end
     end
 
     context "given a string with extra whitespace characters" do
       it "removes them" do
-        group = Kira::Group.new(" #{@idxs[0]}\t+ "\
-                                " #{@idxs[1]}\n +"\
-                                "\n#{@idxs[2]}\t "\
-                                "   \n= #{@sum}\n")
-        @test_attrs.call(group)
+        group = Kira::Group.new(" ( 0  , 1\n)\t+ "\
+                                " \t(1,  \t0)\n +"\
+                                "\n(\t2\t,\t2)\t "\
+                                "   \n\t= \t 18\n")
+        expect(group.indexes).to match_array([1, 9, 20])
+        expect(group.sum).to eq(18)
       end
     end
 
@@ -36,6 +27,16 @@ RSpec.describe Kira::Group do
       it "raises ArgumentError" do
         expect { Kira::Group.new("2+2=4") }.to raise_error(ArgumentError)
       end
+    end
+  end
+
+  describe "#to_s" do
+    it "returns a string in the following form: "\
+       "(Rn, Cm) + (Ro, Cp) + ... = S" do
+
+      equation = "(2, 2) + (1, 8) + (4, 4) = 20"
+      group = Kira::Group.new(equation.dup)
+      expect(group.to_s).to eq(equation)
     end
   end
 end

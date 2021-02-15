@@ -26,17 +26,6 @@ RSpec.describe Kira::Puzzle do
       ".7..9.6.4\n"\
       ".6534.927"
 
-    @grid_possibilities =
-      [[   ],[1,8    ],[     ],[   ],[1,2],[2,9],[   ],[   ],[2  ],
-       [   ],[       ],[     ],[6  ],[   ],[   ],[   ],[   ],[   ],
-       [   ],[1      ],[     ],[   ],[1,2],[2,4],[5  ],[   ],[   ],
-       [6  ],[3,4,5  ],[     ],[   ],[   ],[   ],[4,5],[   ],[5,6],
-       [   ],[3,4,8  ],[3,4,8],[   ],[   ],[   ],[   ],[3  ],[1  ],
-       [   ],[5      ],[     ],[   ],[7  ],[   ],[   ],[   ],[5,6],
-       [   ],[1,2,4,8],[4,8  ],[1,5],[   ],[   ],[1,5],[5,8],[   ],
-       [1,8],[       ],[3,8  ],[1,5],[   ],[2,8],[   ],[5,8],[   ],
-       [1,8],[       ],[     ],[   ],[   ],[8  ],[   ],[   ],[   ]]
-
     @grid_arr =
       [5,0,6,7,0,0,3,4,0,
        4,9,2,0,3,5,7,1,8,
@@ -104,11 +93,6 @@ RSpec.describe Kira::Puzzle do
         puzzle = Kira::Puzzle.new(@solved_grid_str)
         expect(puzzle.grid).to match_array(@solved_grid_arr)
       end
-
-      #it "sets the 'grid_of_possibilities' instance variable" do
-      #  puzzle = Kira::Puzzle.new(@grid_str)
-      #  expect(puzzle.grid_of_possibilities).to match_array(@grid_possibilities)
-      #end
     end
 
     context "given a grid containing dots" do

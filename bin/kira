@@ -3,13 +3,11 @@
 
 require 'kira'
 
-if __FILE__ == $0
-  begin
-    input = $stdin.read
-    sudoku = Kira::Sudoku.new(input)
-    sudoku.solve
-    puts sudoku.to_s + "\n"
-  rescue StandardError => e
-    puts "Error: " + e.message
-  end
+begin
+  input = $stdin.read
+  sudoku = Kira::Sudoku.new(input)
+  sudoku.solve
+  puts sudoku.to_s + "\n"
+rescue StandardError => e
+  puts "Error: " + e.message
 end

@@ -6,7 +6,9 @@ require 'kira'
 begin
   input = $stdin.read
   sudoku = Kira::Sudoku.new(input)
-  sudoku.solve
+  unless sudoku.solve
+    raise StandardError.new("Over-constrained puzzle")
+  end
   puts sudoku.to_s + "\n"
 rescue StandardError => e
   STDERR.puts "Error: " + e.message

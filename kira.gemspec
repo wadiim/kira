@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'kira'
-  s.version     = '0.0.13'
+  s.version     = '0.0.14'
   s.executables = ['kira']
   s.summary     = "A (killer) sudoku solver."
   s.authors     = ["Wadim X. Janikowski"]

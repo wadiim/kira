@@ -22,6 +22,10 @@ module Kira
         end
       end
 
+      if grid == ""
+        grid << '.' * 81
+      end
+
       @puzzle = Puzzle.new(grid)
     end
 

@@ -35,6 +35,21 @@ RSpec.describe Kira::Sudoku do
       end
     end
 
+    context "when no grid was given" do
+      it "creates an empty grid" do
+        sudoku = Kira::Sudoku.new("")
+        expect(sudoku.puzzle.to_s).to eq(".........\n"\
+                                         ".........\n"\
+                                         ".........\n"\
+                                         ".........\n"\
+                                         ".........\n"\
+                                         ".........\n"\
+                                         ".........\n"\
+                                         ".........\n"\
+                                         ".........")
+      end
+    end
+
     context "given expressions" do
       it "initializes the 'groups' instance variable" do
         groups = [Kira::Group.new("(2,1)+(3,2)+(4,8)=12"),

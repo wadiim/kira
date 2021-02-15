@@ -9,5 +9,5 @@ begin
   sudoku.solve
   puts sudoku.to_s + "\n"
 rescue StandardError => e
-  puts "Error: " + e.message
+  STDERR.puts "Error: " + e.message
 end

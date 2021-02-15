@@ -105,10 +105,10 @@ RSpec.describe Kira::Puzzle do
         expect(puzzle.grid).to match_array(@solved_grid_arr)
       end
 
-      it "sets the 'grid_of_possibilities' instance variable" do
-        puzzle = Kira::Puzzle.new(@grid_str)
-        expect(puzzle.grid_of_possibilities).to match_array(@grid_possibilities)
-      end
+      #it "sets the 'grid_of_possibilities' instance variable" do
+      #  puzzle = Kira::Puzzle.new(@grid_str)
+      #  expect(puzzle.grid_of_possibilities).to match_array(@grid_possibilities)
+      #end
     end
 
     context "given a grid containing dots" do
@@ -252,21 +252,6 @@ RSpec.describe Kira::Puzzle do
         @puzzle[1] = 1
         expect(@puzzle.gaps).to eq(gaps - 1)
       end
-
-      it "updates the 'grid_of_possibilities' instance variable" do
-        @puzzle[1] = 1
-        expect(@puzzle.grid_of_possibilities).to eq(
-          [[   ],[     ],[     ],[   ],[  2],[2,9],[   ],[   ],[2  ],
-           [   ],[     ],[     ],[6  ],[   ],[   ],[   ],[   ],[   ],
-           [   ],[     ],[     ],[   ],[1,2],[2,4],[5  ],[   ],[   ],
-           [6  ],[3,4,5],[     ],[   ],[   ],[   ],[4,5],[   ],[5,6],
-           [   ],[3,4,8],[3,4,8],[   ],[   ],[   ],[   ],[3  ],[1  ],
-           [   ],[5    ],[     ],[   ],[7  ],[   ],[   ],[   ],[5,6],
-           [   ],[2,4,8],[4,8  ],[1,5],[   ],[   ],[1,5],[5,8],[   ],
-           [1,8],[     ],[3,8  ],[1,5],[   ],[2,8],[   ],[5,8],[   ],
-           [1,8],[     ],[     ],[   ],[   ],[8  ],[   ],[   ],[   ]]
-        )
-      end
     end
 
     context "given an index of a non-empty cell and a zero value" do
@@ -278,57 +263,6 @@ RSpec.describe Kira::Puzzle do
         gaps = @puzzle.gaps
         @puzzle[0] = 0
         expect(@puzzle.gaps).to eq(gaps + 1)
-      end
-
-      it "updates the 'grid_of_possibilities' instance variable" do
-        @puzzle[0] = 0
-        expect(@puzzle.grid_of_possibilities).to eq(
-          [[1,5,8],[1,5,8  ],[     ],[   ],[1,2],[2,9],[   ],[   ],[2,5],
-           [     ],[       ],[     ],[6  ],[   ],[   ],[   ],[   ],[   ],
-           [     ],[1,5    ],[     ],[   ],[1,2],[2,4],[5  ],[   ],[   ],
-           [5,6  ],[3,4,5  ],[     ],[   ],[   ],[   ],[4,5],[   ],[5,6],
-           [     ],[3,4,8  ],[3,4,8],[   ],[   ],[   ],[   ],[3  ],[1  ],
-           [     ],[5      ],[     ],[   ],[7  ],[   ],[   ],[   ],[5,6],
-           [     ],[1,2,4,8],[4,8  ],[1,5],[   ],[   ],[1,5],[5,8],[   ],
-           [1,8  ],[       ],[3,8  ],[1,5],[   ],[2,8],[   ],[5,8],[   ],
-           [1,8  ],[       ],[     ],[   ],[   ],[8  ],[   ],[   ],[   ]]
-        )
-      end
-    end
-
-    context "given an index of a non-empty cell and a non-zero value" do
-      it "updates the 'grid_of_possibilities' instance variable" do
-        puzzle = Kira::Puzzle.new(@grid_str)
-        puzzle[0] = 8
-        expect(puzzle.grid_of_possibilities).to eq(
-          [[   ],[1,5    ],[     ],[   ],[1,2],[2,9],[   ],[   ],[2,5],
-           [   ],[       ],[     ],[6  ],[   ],[   ],[   ],[   ],[   ],
-           [   ],[1,5    ],[     ],[   ],[1,2],[2,4],[5  ],[   ],[   ],
-           [5,6],[3,4,5  ],[     ],[   ],[   ],[   ],[4,5],[   ],[5,6],
-           [   ],[3,4,8  ],[3,4,8],[   ],[   ],[   ],[   ],[3  ],[1  ],
-           [   ],[5      ],[     ],[   ],[7  ],[   ],[   ],[   ],[5,6],
-           [   ],[1,2,4,8],[4,8  ],[1,5],[   ],[   ],[1,5],[5,8],[   ],
-           [1  ],[       ],[3,8  ],[1,5],[   ],[2,8],[   ],[5,8],[   ],
-           [1  ],[       ],[     ],[   ],[   ],[8  ],[   ],[   ],[   ]]
-        )
-      end
-    end
-
-    context "given an index of an empty cell and a zero value" do
-      it "keeps the original form of the 'grid_of_possibilities'" do
-        puzzle = Kira::Puzzle.new(@grid_str)
-        puzzle[1] = 0
-        expect(puzzle.grid_of_possibilities).to eq(
-          [[   ],[1,8    ],[     ],[   ],[1,2],[2,9],[   ],[   ],[2  ],
-           [   ],[       ],[     ],[6  ],[   ],[   ],[   ],[   ],[   ],
-           [   ],[1      ],[     ],[   ],[1,2],[2,4],[5  ],[   ],[   ],
-           [6  ],[3,4,5  ],[     ],[   ],[   ],[   ],[4,5],[   ],[5,6],
-           [   ],[3,4,8  ],[3,4,8],[   ],[   ],[   ],[   ],[3  ],[1  ],
-           [   ],[5      ],[     ],[   ],[7  ],[   ],[   ],[   ],[5,6],
-           [   ],[1,2,4,8],[4,8  ],[1,5],[   ],[   ],[1,5],[5,8],[   ],
-           [1,8],[       ],[3,8  ],[1,5],[   ],[2,8],[   ],[5,8],[   ],
-           [1,8],[       ],[     ],[   ],[   ],[8  ],[   ],[   ],[   ]]
-        )
       end
     end
 

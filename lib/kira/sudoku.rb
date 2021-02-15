@@ -35,44 +35,42 @@ module Kira
       @puzzle.to_s
     end
 
-    def solve()
+    def solve(start = 0)
+      # Find next empty cell.
+      start.upto(80) do |i|
+        if @puzzle.grid[i] == 0
+          start = i
+          break
+        end
+      end
+
       if @puzzle.solved?
         return true
       end
 
-      # Find the index of an empty cell with the smallest number of
-      # possibilities.
-      min_idx = 0
-      1.upto(80) do
-        |i|
-        if (@puzzle[i] == 0 and
-            @puzzle.grid_of_possibilities[i].size <
-            @puzzle.grid_of_possibilities[min_idx].size) or
-            @puzzle[min_idx] != 0 and @puzzle[i] == 0
-
-          min_idx = i
+      possibilities = []
+      1.upto(9) do |v|
+        if valid?(v, start)
+          possibilities.push(v)
         end
       end
 
-      possibilities = @puzzle.grid_of_possibilities[min_idx].dup
-      possibilities.delete_if { |p| valid?(p, min_idx) == false }
+      possibilities.each do |p|
+        @puzzle[start] = p
 
-      while possibilities.size > 0 do
-        @puzzle[min_idx] = possibilities.pop
-
-        if solve
+        if solve(start + 1)
           return true
         end
       end
 
-      @puzzle[min_idx] = 0
+      @puzzle[start] = 0
       false
     end
 
     # Returns true if the 'val' on the given 'pos' does not repeat in a column,
     # row, box or group and all the equations are satisfied.
     def valid?(val, pos)
-      unless @puzzle.grid_of_possibilities[pos].include?(val)
+      unless @puzzle.valid?(val, pos)
         return false
       end
 

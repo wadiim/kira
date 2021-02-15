@@ -17,19 +17,9 @@ module Kira
       grid.each_char { |c| @grid.push(c.to_i) }
 
       @gaps = 0
-      @grid_of_possibilities = []
-      0.upto(80) do
-        |idx|
-        @grid_of_possibilities.push([])
-        if @grid[idx] != 0
-          next
-        end
-        @gaps += 1
-        1.upto(9) do
-          |val|
-          if valid?(val, idx)
-            @grid_of_possibilities[idx].push(val)
-          end
+      @grid.each do |cell|
+        if cell == 0
+          @gaps += 1
         end
       end
     end
@@ -132,34 +122,6 @@ module Kira
 
       old = @grid[idx]
       @grid[idx] = val
-
-      if old != 0
-        update(idx) {
-          |i|
-          if @grid[i] == 0 and valid?(old, i) and
-              not @grid_of_possibilities[i].include?(old)
-
-            @grid_of_possibilities[i].push(old).sort!
-          end
-        }
-        1.upto(9) do
-          |v|
-          if valid?(v, idx) and not @grid_of_possibilities[idx].include?(v)
-            @grid_of_possibilities[idx].push(v).sort!
-          end
-        end
-      end
-
-      update(idx) {
-        |i|
-        if @grid_of_possibilities[i].include?(val)
-          @grid_of_possibilities[i].delete(val)
-        end
-      }
-
-      if val != 0
-        @grid_of_possibilities[idx].clear
-      end
 
       # Update @gaps
       if val != 0 and old == 0

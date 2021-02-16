@@ -116,8 +116,6 @@ module Kira
         raise IndexError.new("Index out of range")
       elsif not val.between?(0, 9)
         raise ArgumentError.new("Value out of range")
-      elsif not valid?(val, idx)
-        raise ArgumentError.new("Invalid value")
       end
 
       old = @grid[idx]

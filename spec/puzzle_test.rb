@@ -214,13 +214,6 @@ RSpec.describe Kira::Puzzle do
       end 
     end
 
-    context "given an invalid value" do
-      it "raises ArgumentError" do
-        puzzle = Kira::Puzzle.new(@grid_str)
-        expect { puzzle[1] = 5 }.to raise_error(ArgumentError)
-      end
-    end
-
     context "given an index of an empty cell and a valid value" do
       before(:each) do
         @puzzle = Kira::Puzzle.new(@grid_str)
@@ -255,13 +248,6 @@ RSpec.describe Kira::Puzzle do
         puzzle = Kira::Puzzle.new(@grid_str)
         puzzle[0] = 1
         expect(puzzle[0]).to eq(1)
-      end
-    end
-
-    context "given an index of a non-empty cell and an invalid value" do
-      it "raises ArgumentError" do
-        puzzle = Kira::Puzzle.new(@grid_str)
-        expect { puzzle[0] = 6 }.to raise_error(ArgumentError)
       end
     end
   end

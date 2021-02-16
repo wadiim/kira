@@ -2,7 +2,7 @@
 
 module Kira
 
-  # Represents the state of a 9x9 Sudoku puzzle. 
+  # Represents the state of a 9x9 sudoku puzzle. 
   class Puzzle
     def initialize(grid)
       grid.delete!(" \t\n\r")
@@ -34,14 +34,14 @@ module Kira
       #   index of the first cell in the row containing 'pos'.
       #
       # pos % 9:
-      #   index of the first cell in the col containing 'pos'.
+      #   index of the first cell in the column containing 'pos'.
       #
       # (pos - (pos % 3)):
       #   index of the left-most cell in the box containing 'pos'.
       #
       # (pos - (pos % 3)) % 9:
-      #   index of the first cell in the col containing the top-left corner of
-      #   the box.
+      #   index of the first cell in the column containing the top-left corner
+      #   of the box.
       #
       # (pos - (pos % 27)):
       #   index of the first cell in the row containing the top-left corner of
@@ -51,23 +51,19 @@ module Kira
       #   index of the top-left corner of the box containing 'pos'.
 
       # Scan row
-      9.times do
-        |i|
+      9.times do |i|
         proc.call((pos - (pos % 9)) + i)
       end
 
       # Scan col
-      9.times do
-        |i|
+      9.times do |i|
         proc.call((pos % 9) + i*9)
       end
 
       # Scan box
       corner_idx = (pos - (pos % 3)) % 9 + (pos - (pos % 27))
-      3.times do
-        |i|
-        3.times do
-          |j|
+      3.times do |i|
+        3.times do |j|
           proc.call(corner_idx + i*9 + j)
         end
       end
@@ -86,8 +82,7 @@ module Kira
 
     def to_s
       string = ""
-      0.upto(80) do
-        |i|
+      0.upto(80) do |i|
         if @grid[i] == 0
           string << "."
         else
@@ -109,8 +104,6 @@ module Kira
       @grid[idx]
     end
 
-    # Inserts the 'val' at the given index and updates the
-    # '@grid_of_possibilities' variable.
     def []=(idx, val)
       if idx > 80
         raise IndexError.new("Index out of range")
@@ -121,7 +114,6 @@ module Kira
       old = @grid[idx]
       @grid[idx] = val
 
-      # Update @gaps
       if val != 0 and old == 0
         @gaps -= 1
       elsif val == 0 and old != 0

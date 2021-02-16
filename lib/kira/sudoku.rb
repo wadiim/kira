@@ -5,16 +5,15 @@ require 'kira/puzzle'
 
 module Kira
 
-  # A Killer Sudoku solver. It is initialized with a string containing a grid
-  # followed by any number of equations. The grid consists of digits from 1 to
-  # 9 and dots representing an empty cell. Each equation has to be on its own
-  # line.
+  # A Killer Sudoku solver. It is initialized with an optional string
+  # containing a grid followed by any number of equations. The grid consists
+  # of digits from 1 to 9 and dots representing an empty cell. Each equation
+  # has to be on its own line.
   class Sudoku
     def initialize(string)
       grid = ""
       @groups = []
-      string.each_line do
-        |line|
+      string.each_line do |line|
         if line.match("^[1-9\. \t\n\r]*$")
           grid << line
         else
@@ -83,7 +82,7 @@ module Kira
 
         # Set to true when the group contains an empty cell at position other
         # than 'pos'.
-        empty_cell = false
+        empty = false
 
         g.indexes.each do |idx|
           v = @puzzle.grid[idx]
@@ -93,16 +92,14 @@ module Kira
               return false
             end
             if v == 0
-              empty_cell = true
+              empty = true
             end
           end
 
           sum += v
         end
 
-        unless (sum == g.sum and not empty_cell) or
-            (empty_cell and sum < g.sum)
-
+        unless (sum == g.sum and not empty) or (empty and sum < g.sum)
           return false
         end
       end

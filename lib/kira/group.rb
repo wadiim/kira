@@ -21,17 +21,16 @@ module Kira
       *str_idxs, @sum = equation.split(/[=+]/)
       @sum = @sum.to_i
       @indexes = []
-      str_idxs.each {
-        |idx|
+      str_idxs.each do |idx|
         row, col = idx.scan(/\d+/).map(&:to_i)
         indexes.push(row*9 + col)
-      }
+      end
     end
 
     attr_reader :indexes, :sum
 
     def to_s
-      (@indexes.map { |i| "(#{i/9}, #{i%9})" }).join(" + ") + " = #{@sum}"
+      (@indexes.map { |i| "(#{i / 9}, #{i % 9})" }).join(" + ") + " = #{@sum}"
     end
   end
 end

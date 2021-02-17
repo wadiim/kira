@@ -19,7 +19,7 @@ module Kira
 
     attr_reader :grid
 
-    # Traverses the row, column, and box containing the 'pos' and call the
+    # Traverses the row, column, and box containing the 'pos' and calls the
     # 'proc' with the current index as an argument on each step. Note that it
     # visits some cells more than once.
     def scan(pos, &proc)

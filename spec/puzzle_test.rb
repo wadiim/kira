@@ -88,8 +88,8 @@ RSpec.describe Kira::Puzzle do
       end
     end
 
-    context "given valid grid" do
-      it "sets the 'grid' instance variable" do
+    context "given a valid grid" do
+      it "initializes the 'grid' instance variable" do
         puzzle = Kira::Puzzle.new(@solved_grid_str)
         expect(puzzle.grid).to match_array(@solved_grid_arr)
       end
@@ -102,8 +102,8 @@ RSpec.describe Kira::Puzzle do
       end
     end
 
-    context "given a grid containing whitespaces" do
-      it "removes them" do
+    context "given a grid with extra whitespace characters" do
+      it "ignores them" do
         grid =
           "  5 .\n\t\n6 7. .3 4.\n" \
           "49\t2.35   7 18\n"       \
@@ -170,7 +170,7 @@ RSpec.describe Kira::Puzzle do
   describe "#[]" do
     context "given a valid index" do
       it "returns a value at that index" do
-        puzzle = Kira::Puzzle.new(@grid_str)
+        puzzle = Kira::Puzzle.new(@grid_str.dup)
         expect(puzzle[2]).to eq(@grid_str[2].to_i)
       end
     end

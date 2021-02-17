@@ -26,6 +26,13 @@ module Kira
       end
 
       @puzzle = Puzzle.new(grid)
+
+      # '@grid_of_group_idxs' maps the cell's index to the index of the group
+      # to which the cell belongs.
+      @grid_of_group_idxs = Array.new(81)
+      0.upto(@groups.size - 1) do |i|
+        @groups[i].indexes.each { |j| @grid_of_group_idxs[j] = i }
+      end
     end
 
     attr_reader :puzzle, :groups
@@ -36,14 +43,11 @@ module Kira
 
     def solve(start = 0)
       # Find next empty cell.
-      start.upto(80) do |i|
-        if @puzzle.grid[i] == 0
-          start = i
-          break
-        end
+      until @puzzle[start] == 0 or @puzzle[start] == nil
+        start += 1
       end
 
-      if @puzzle.solved?
+      if @puzzle[start] == nil
         return true
       end
 
@@ -73,35 +77,35 @@ module Kira
         return false
       end
 
-      @groups.each do |g|
-        unless g.indexes.include?(pos)
-          next
-        end
+      group_idx = @grid_of_group_idxs[pos]
+      if group_idx == nil
+        return true
+      end
 
-        sum = val
+      g = @groups[group_idx]
+      sum = val
 
-        # Set to true when the group contains an empty cell at position other
-        # than 'pos'.
-        empty = false
+      # Set to true when the group contains an empty cell at position other
+      # than 'pos'.
+      empty = false
 
-        g.indexes.each do |idx|
-          v = @puzzle.grid[idx]
+      g.indexes.each do |idx|
+        v = @puzzle.grid[idx]
 
-          if idx != pos
-            if v == val
-              return false
-            end
-            if v == 0
-              empty = true
-            end
+        if idx != pos
+          if v == val
+            return false
           end
-
-          sum += v
+          if v == 0
+            empty = true
+          end
         end
 
-        unless (sum == g.sum and not empty) or (empty and sum < g.sum)
-          return false
-        end
+        sum += v
+      end
+
+      unless (sum == g.sum and not empty) or (empty and sum < g.sum)
+        return false
       end
 
       true

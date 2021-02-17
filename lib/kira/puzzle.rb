@@ -15,16 +15,9 @@ module Kira
 
       @grid = []
       grid.each_char { |c| @grid.push(c.to_i) }
-
-      @gaps = 0
-      @grid.each do |cell|
-        if cell == 0
-          @gaps += 1
-        end
-      end
     end
 
-    attr_reader :grid, :grid_of_possibilities, :gaps
+    attr_reader :grid
 
     # Traverses the row, column, and box containing the 'pos' and call the
     # 'proc' with the current index as an argument on each step. Note that it
@@ -96,10 +89,6 @@ module Kira
       string
     end
 
-    def solved?
-      @gaps == 0
-    end
-
     def [](idx)
       @grid[idx]
     end
@@ -111,14 +100,7 @@ module Kira
         raise ArgumentError.new("Value out of range")
       end
 
-      old = @grid[idx]
       @grid[idx] = val
-
-      if val != 0 and old == 0
-        @gaps -= 1
-      elsif val == 0 and old != 0
-        @gaps += 1
-      end
     end
   end
 end

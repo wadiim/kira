@@ -167,22 +167,6 @@ RSpec.describe Kira::Puzzle do
     end
   end
 
-  describe "#solved?" do
-    context "given an unsolved puzzle" do
-      it "returns false" do
-        puzzle = Kira::Puzzle.new(@grid_str)
-        expect(puzzle.solved?).to eq(false)
-      end
-    end
-
-    context "given a solved puzzle" do
-      it "returns true" do
-        puzzle = Kira::Puzzle.new(@solved_grid_str)
-        expect(puzzle.solved?).to eq(true)
-      end
-    end
-  end
-
   describe "#[]" do
     context "given a valid index" do
       it "returns a value at that index" do
@@ -215,31 +199,10 @@ RSpec.describe Kira::Puzzle do
     end
 
     context "given an index of an empty cell and a valid value" do
-      before(:each) do
-        @puzzle = Kira::Puzzle.new(@grid_str)
-      end
-
       it "inserts it" do
-        @puzzle[1] = 1
-        expect(@puzzle[1]).to eq(1)
-      end
-
-      it "decrements the 'gaps' instance variable" do
-        gaps = @puzzle.gaps
-        @puzzle[1] = 1
-        expect(@puzzle.gaps).to eq(gaps - 1)
-      end
-    end
-
-    context "given an index of a non-empty cell and a zero value" do
-      before(:each) do
-        @puzzle = Kira::Puzzle.new(@grid_str)
-      end
-
-      it "increments the 'gaps' instance variable" do
-        gaps = @puzzle.gaps
-        @puzzle[0] = 0
-        expect(@puzzle.gaps).to eq(gaps + 1)
+        puzzle = Kira::Puzzle.new(@grid_str)
+        puzzle[1] = 1
+        expect(puzzle[1]).to eq(1)
       end
     end
 

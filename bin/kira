@@ -2,6 +2,29 @@
 # -*- coding: utf-8 -*-
 
 require 'kira'
+require 'getoptlong'
+
+opts = GetoptLong.new(
+  ['--help', '-h', GetoptLong::NO_ARGUMENT],
+  ['--version', '-V', GetoptLong::NO_ARGUMENT]
+)
+
+opts.each do |opt, arg|
+  case opt
+  when '--help'
+    puts <<~EOF
+      Usage: #{$0} [options]
+
+      Options:
+        -h, --help      display this help and exit
+        -V, --version   output version information and exit
+    EOF
+    exit 0
+  when '--version'
+    puts "Kira #{Kira::VERSION}"
+    exit 0
+  end
+end
 
 begin
   input = $stdin.read

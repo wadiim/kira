@@ -4,9 +4,61 @@
 require 'kira'
 require 'getoptlong'
 
+class GridDecorator
+  def initialize
+    @top_border             = ""
+    @bottom_border          = ""
+    @vertical_separator     = ""
+    @box_vertical_separator = ""
+    @row_separator          = ""
+    @box_row_separator      = ""
+  end
+
+  def decorate(grid)
+    ret = @top_border
+    row_num = 0
+    grid.each_line do |line|
+      col_num = 0
+      line.chomp.each_char do |c|
+        if col_num % 3 == 0
+          ret += @box_vertical_separator
+        else
+          ret += @vertical_separator
+        end
+        ret += "#{c} "
+        col_num += 1
+      end
+      ret += @box_vertical_separator + "\n"
+      if (row_num + 1) % 3 == 0 and row_num != 8
+        ret += @box_row_separator
+      elsif row_num != 8
+        ret += @row_separator
+      end
+      row_num += 1
+    end
+    ret += @bottom_border
+
+    ret
+  end
+end
+
+class ASCIIGridDecorator < GridDecorator
+  def initialize
+    @top_border             = "+-------" * 3 + "+\n"
+    @bottom_border          = "+-------" * 3 + "+"
+    @vertical_separator     = ""
+    @box_vertical_separator = "| "
+    @row_separator          = ""
+    @box_row_separator      = @top_border
+  end
+end
+
+decorator = GridDecorator.new
+
 opts = GetoptLong.new(
   ['--help', '-h', GetoptLong::NO_ARGUMENT],
-  ['--version', '-V', GetoptLong::NO_ARGUMENT]
+  ['--version', '-V', GetoptLong::NO_ARGUMENT],
+  ['--pretty', GetoptLong::NO_ARGUMENT]
 )
 
 opts.each do |opt, arg|
@@ -18,11 +70,14 @@ opts.each do |opt, arg|
       Options:
         -h, --help      display this help and exit
         -V, --version   output version information and exit
+        --pretty        pretty-print the result
     EOF
     exit 0
   when '--version'
     puts "Kira #{Kira::VERSION}"
     exit 0
+  when '--pretty'
+    decorator = ASCIIGridDecorator.new
   end
 end
 
@@ -32,7 +87,7 @@ begin
   unless sudoku.solve
     raise StandardError.new("Over-constrained puzzle")
   end
-  puts sudoku.to_s + "\n"
+  puts decorator.decorate(sudoku.to_s + "\n")
 rescue StandardError => e
   STDERR.puts "Error: " + e.message
 end

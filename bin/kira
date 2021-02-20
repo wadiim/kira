@@ -53,12 +53,23 @@ class ASCIIGridDecorator < GridDecorator
   end
 end
 
+class BoxGridDecorator < GridDecorator
+  def initialize
+    @top_border             = "┏━━━┯━━━┯━━━┳━━━┯━━━┯━━━┳━━━┯━━━┯━━━┓\n"
+    @bottom_border          = "┗━━━┷━━━┷━━━┻━━━┷━━━┷━━━┻━━━┷━━━┷━━━┛"
+    @vertical_separator     = "│ "
+    @box_vertical_separator = "┃ "
+    @row_separator          = "┠───┼───┼───╂───┼───┼───╂───┼───┼───┨\n"
+    @box_row_separator      = "┣━━━┿━━━┿━━━╋━━━┿━━━┿━━━╋━━━┿━━━┿━━━┫\n"
+  end
+end
+
 decorator = GridDecorator.new
 
 opts = GetoptLong.new(
   ['--help', '-h', GetoptLong::NO_ARGUMENT],
   ['--version', '-V', GetoptLong::NO_ARGUMENT],
-  ['--pretty', GetoptLong::NO_ARGUMENT]
+  ['--pretty', GetoptLong::OPTIONAL_ARGUMENT]
 )
 
 opts.each do |opt, arg|
@@ -68,16 +79,20 @@ opts.each do |opt, arg|
       Usage: #{$0} [options]
 
       Options:
-        -h, --help      display this help and exit
-        -V, --version   output version information and exit
-        --pretty        pretty-print the result
+        -h, --help            display this help and exit
+        -V, --version         output version information and exit
+        --pretty[=<format>]   pretty-print the result in a given format
     EOF
     exit 0
   when '--version'
     puts "Kira #{Kira::VERSION}"
     exit 0
   when '--pretty'
-    decorator = ASCIIGridDecorator.new
+    if arg == "" or arg == "ascii"
+      decorator = ASCIIGridDecorator.new
+    elsif arg == "box"
+      decorator = BoxGridDecorator.new
+    end
   end
 end
 

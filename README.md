@@ -2,6 +2,13 @@
 
 A (killer) sudoku solver.
 
+![](https://user-images.githubusercontent.com/33803413/108632939-b8790f00-7471-11eb-8e90-029ca1aadcb5.png)
+
+## Requirements
+
+* [Ruby](https://www.ruby-lang.org/en/)
+* [colorize](https://github.com/fazibear/colorize)
+
 ## Usage
 
 ```
@@ -14,6 +21,8 @@ Option | Meaning
 --- | ---
 `-h`, `--help` | Show help message and exit.
 `-V`, `--version` | Output version information and exit.
+`--pretty[=<format>]` | Pretty-print the result in a given format, where `<format>` can be `ascii` or `box`. When `=<format>` is omitted, it defaults to `ascii`.
+`--color` | Colorize the output.
 
 ### Input syntax
 

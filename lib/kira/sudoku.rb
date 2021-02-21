@@ -35,7 +35,7 @@ module Kira
       end
     end
 
-    attr_reader :puzzle, :groups
+    attr_reader :puzzle, :groups, :grid_of_group_idxs
 
     def to_s
       @puzzle.to_s

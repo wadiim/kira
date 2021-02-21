@@ -3,6 +3,7 @@
 
 require 'kira'
 require 'getoptlong'
+require 'colorize'
 
 class GridDecorator
   def initialize
@@ -64,12 +65,48 @@ class BoxGridDecorator < GridDecorator
   end
 end
 
+class Printer
+  def print(sudoku, decorator)
+    puts decorator.decorate(sudoku.to_s + "\n")
+  end
+end
+
+class ColorPrinter < Printer
+  def print(sudoku, decorator)
+    grid = decorator.decorate(sudoku.to_s + "\n")
+    colors = String.colors.shuffle
+    colors.delete_if do |item|
+      [:black, :light_black, :white, :light_white].include? item
+    end
+    output = ""
+    i = 0
+    grid.each_char do |c|
+      if c.match?(/[1-9]/)
+        group_no = sudoku.grid_of_group_idxs[i]
+        if group_no
+          group_no %= colors.size
+          output << c.colorize(colors[group_no])
+        else
+          output << c
+        end
+        i += 1
+      else
+        output << c
+      end
+    end
+
+    puts output
+  end
+end
+
+printer = Printer.new
 decorator = GridDecorator.new
 
 opts = GetoptLong.new(
   ['--help', '-h', GetoptLong::NO_ARGUMENT],
   ['--version', '-V', GetoptLong::NO_ARGUMENT],
-  ['--pretty', GetoptLong::OPTIONAL_ARGUMENT]
+  ['--pretty', GetoptLong::OPTIONAL_ARGUMENT],
+  ['--color', GetoptLong::NO_ARGUMENT]
 )
 
 opts.each do |opt, arg|
@@ -82,6 +119,7 @@ opts.each do |opt, arg|
         -h, --help            display this help and exit
         -V, --version         output version information and exit
         --pretty[=<format>]   pretty-print the result in a given format
+        --color               colorize the output
     EOF
     exit 0
   when '--version'
@@ -93,6 +131,8 @@ opts.each do |opt, arg|
     elsif arg == "box"
       decorator = BoxGridDecorator.new
     end
+  when '--color'
+    printer = ColorPrinter.new
   end
 end
 
@@ -102,7 +142,7 @@ begin
   unless sudoku.solve
     raise StandardError.new("Over-constrained puzzle")
   end
-  puts decorator.decorate(sudoku.to_s + "\n")
+  printer.print(sudoku, decorator)
 rescue StandardError => e
   STDERR.puts "Error: " + e.message
 end

@@ -9,6 +9,12 @@ A (killer) sudoku solver.
 * [Ruby](https://www.ruby-lang.org/en/)
 * [colorize](https://github.com/fazibear/colorize)
 
+## Installation
+
+```
+gem install kira
+```
+
 ## Usage
 
 ```

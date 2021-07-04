@@ -27,7 +27,7 @@ Option | Meaning
 --- | ---
 `-h`, `--help` | Show help message and exit.
 `-V`, `--version` | Output version information and exit.
-`--pretty[=<format>]` | Pretty-print the result in a given format, where `<format>` can be `ascii` or `box`. When `=<format>` is omitted, it defaults to `ascii`.
+`--pretty[=<format>]` | Pretty-print the result in a given format, where `<format>` can be `ascii` or `box`. When `ascii` argument is given, then `\|`, `-`, and `+` ASCII characters will be used to create the grid. The `box` argument tells `kira` to use Unicode box-drawing characters for grid generation. When `=<format>` is omitted, it defaults to `ascii`.
 `--color` | Colorize the output.
 
 ### Input syntax
@@ -44,9 +44,10 @@ but each equation needs to be on its own line.
 To finish entering the input, type <kbd>Ctrl-D</kbd> on GNU/Linux or
 <kbd>Ctrl-Z</kbd> followed by <kbd>Enter</kbd> on Windows.
 
-#### Example
+### Example
 
 ```
+$ kira
 64.......
 7........
 ....7941.
@@ -79,6 +80,15 @@ To finish entering the input, type <kbd>Ctrl-D</kbd> on GNU/Linux or
 (7,5)+(8,4)+(8,5)=9
 (7,6)+(7,7)=7
 (6,8)+(7,8)=8
+6 4 9 8 1 5 2 7 3 
+7 5 1 3 4 2 9 8 6 
+8 3 2 6 7 9 4 1 5 
+3 6 8 2 5 7 1 4 9 
+5 9 4 1 8 3 7 6 2 
+2 1 7 9 6 4 3 5 8 
+4 2 5 7 3 8 6 9 1 
+1 8 3 4 9 6 5 2 7 
+9 7 6 5 2 1 8 3 4
 ```
 
 ## License
